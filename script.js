@@ -1,7 +1,6 @@
 const texto = document.getElementById("textoTarefa");
 const btnInserir = document.getElementById("btnInserir");
 const listaCompleta = document.getElementById("listaTarefas"); //Div que onde serão inseridas as tarefas
-const tarefasNovas = [];
 
 let numTarefa = 0;
 
@@ -9,10 +8,9 @@ let numTarefa = 0;
 const adicionarTarefa = () => {
   if (texto.value != "") {
     numTarefa++;
-    tarefasNovas.push(texto.value);
-    texto.value = "";
     exibirTarefa();
     criarBotoes();
+    texto.value = "";
   } else {
     alert("Digite uma Tarefa");
   }
@@ -32,9 +30,7 @@ const exibirTarefa = () => {
   botaoDeletar.setAttribute("class", "fa-solid fa-trash-can");
 
   //Insere o texto reservado no array dentro do paragrafo tarefa
-  tarefasNovas.map((tarefa) => {
-    textoTarefa.innerHTML = `${tarefa}`;
-  });
+  textoTarefa.innerHTML = `${texto.value}`;
 
   //Acidiona os elementos criados à lista completa de tarefas
   espacoTarefa.appendChild(verificador);
