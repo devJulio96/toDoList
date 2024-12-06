@@ -34,6 +34,10 @@ label {
   justify-content: center;
 }
 
+p{
+  word-break: break-all;
+}
+
 .inputTarefa{
   width: 70%;
   height: 1.8rem;
@@ -75,6 +79,7 @@ input[type=checkbox]{
   height: 1.5em;
   vertical-align: middle;
   cursor: pointer;
+  min-width: 5%;
 }
 
 .tarefaCompleta{
