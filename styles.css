@@ -70,7 +70,12 @@ div.tarefaIncompleta, div.tarefaCompleta {
   font-size: 1.5rem;
   padding: 0.8rem;
   font-weight: 100;
-  
+  opacity: 0.5;
+  transition: opacity 0.5s;
+}
+
+div.tarefaIncompleta:hover, div.tarefaCompleta:hover{
+  opacity: 1.0;
 }
 
 input[type=checkbox]{

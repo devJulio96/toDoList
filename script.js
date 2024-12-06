@@ -29,7 +29,7 @@ const exibirTarefa = () => {
   verificador.setAttribute("type", "checkbox");
   botaoDeletar.setAttribute("class", "fa-solid fa-trash-can");
 
-  //Insere o texto reservado no array dentro do paragrafo tarefa
+  //Insere o texto do paragrafo `textoTarefa`
   textoTarefa.innerHTML = `${texto.value}`;
 
   //Acidiona os elementos criados à lista completa de tarefas
