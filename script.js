@@ -1,10 +1,10 @@
+let tarefasTotais = 0;
+let tarefasCompletas = 0;
 const texto = document.getElementById("textoTarefa");
 const btnInserir = document.getElementById("btnInserir");
 const listaCompleta = document.getElementById("listaTarefas");
 const contadorTarefas = document.getElementById("contador");
-let tarefaAtual = 0;
-let tarefasTotais = 0;
-let tarefasCompletas = 0;
+contadorTarefas.innerHTML = `Tarefas: ${tarefasTotais} Completas: ${tarefasCompletas}`;
 
 //Adiciona tarefa ao array tarefasNovas
 const adicionarTarefa = () => {
@@ -39,7 +39,9 @@ const criarElementos = () => {
   iconeLixeira.addEventListener("click",()=>{
     espacoTarefa.remove();
     tarefasTotais -=1;
-    tarefasCompletas -=1;
+    if(tarefasCompletas > 0){
+      tarefasCompletas -=1;
+    }
     exibirNumeroTarefas();
   })
   
