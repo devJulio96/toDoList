@@ -1,13 +1,12 @@
 const texto = document.getElementById("textoTarefa");
 const btnInserir = document.getElementById("btnInserir");
 const listaCompleta = document.getElementById("listaTarefas"); //Div que onde serão inseridas as tarefas
-
-let numTarefa = 0;
+const contador = document.getElementById("contador");
 
 //Adiciona tarefa ao array tarefasNovas
 const adicionarTarefa = () => {
   if (texto.value != "") {
-    numTarefa++;
+    tarefasTotais++;
     exibirTarefa();
     criarBotoes();
     texto.value = "";
@@ -39,24 +38,6 @@ const exibirTarefa = () => {
   listaCompleta.appendChild(espacoTarefa);
 };
 
-const criarBotoes = () => {
-  const lista = [...listaCompleta.childNodes];
-
-  lista.map((tarefa, numero) => {
-    tarefa.addEventListener("click", (evt) => {
-      if (evt.target == lista[numero].lastChild) {
-        //Esse é um botão da Lixeira: deleta a tarefa que foi clicada;
-        lista[numero].remove();
-      } else if (evt.target == lista[numero].firstChild) {
-        //Esse é um checkbox que altera a cor da tarefa
-        evt.target.checked === true
-          ? lista[numero].setAttribute("class", "tarefaCompleta")
-          : lista[numero].setAttribute("class", "tarefaIncompleta");
-      }
-    });
-  });
-};
-
 //Invoca a função adicionarTarefa ao clicar no botão
 btnInserir.addEventListener("click", adicionarTarefa);
 
@@ -67,4 +48,19 @@ texto.addEventListener("keyup", (tecla) => {
   }
 });
 
+const criarBotoes = () => {
+  const lista = [...listaCompleta.childNodes];
 
+  for (const tarefa of lista) {
+
+    tarefa.firstChild.addEventListener("click", () => {
+      tarefa.firstChild.checked
+        ? tarefa.setAttribute("class", "tarefaCompleta")
+        : tarefa.setAttribute("class", "tarefaIncompleta");
+    });
+
+    tarefa.lastChild.addEventListener("click", () => {
+      tarefa.remove();
+    });
+  }
+};

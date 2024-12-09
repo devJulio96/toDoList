@@ -46,6 +46,7 @@ p{
   border-radius: 8px;
   padding: 0.5rem;
   font-size: 1.25rem;
+  outline: 0;
 }
 
 button {
@@ -70,12 +71,6 @@ div.tarefaIncompleta, div.tarefaCompleta {
   font-size: 1.5rem;
   padding: 0.8rem;
   font-weight: 100;
-  opacity: 0.5;
-  transition: opacity 0.5s;
-}
-
-div.tarefaIncompleta:hover, div.tarefaCompleta:hover{
-  opacity: 1.0;
 }
 
 input[type=checkbox]{
@@ -85,6 +80,7 @@ input[type=checkbox]{
   vertical-align: middle;
   cursor: pointer;
   min-width: 5%;
+  outline: 0;
 }
 
 .tarefaCompleta{
