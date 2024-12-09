@@ -1,32 +1,58 @@
 const texto = document.getElementById("textoTarefa");
 const btnInserir = document.getElementById("btnInserir");
-const listaCompleta = document.getElementById("listaTarefas"); //Div que onde serão inseridas as tarefas
-const contador = document.getElementById("contador");
+const listaCompleta = document.getElementById("listaTarefas");
+const contadorTarefas = document.getElementById("contador");
+let tarefaAtual = 0;
+let tarefasTotais = 0;
+let tarefasCompletas = 0;
 
 //Adiciona tarefa ao array tarefasNovas
 const adicionarTarefa = () => {
   if (texto.value != "") {
     tarefasTotais++;
-    exibirTarefa();
-    criarBotoes();
+    tarefaAtual++;
+    criarElementos();
+    exibirNumeroTarefas();
     texto.value = "";
   } else {
     alert("Digite uma Tarefa");
   }
 };
 
+const exibirNumeroTarefas = ()=>{
+  contadorTarefas.innerHTML = `Tarefas: ${tarefasTotais} Completas: ${tarefasCompletas}`;
+}
+
 //Exibe a tarefa na listaCompleta
-const exibirTarefa = () => {
+const criarElementos = () => {
   //Cria os elementos para inserir na lista
   const espacoTarefa = document.createElement("div");
   const verificador = document.createElement("input");
   const textoTarefa = document.createElement("p");
-  const botaoDeletar = document.createElement("i");
+  const iconeLixeira = document.createElement("i");
 
   //Adiciona os atributos de estilização e tipo aos elementos necessários
   espacoTarefa.setAttribute("class", "tarefaIncompleta");
   verificador.setAttribute("type", "checkbox");
-  botaoDeletar.setAttribute("class", "fa-solid fa-trash-can");
+  iconeLixeira.setAttribute("class", "fa-solid fa-trash-can");
+  
+  iconeLixeira.addEventListener("click",()=>{
+    espacoTarefa.remove();
+    tarefasTotais -=1;
+    tarefasCompletas -=1;
+    exibirNumeroTarefas();
+  })
+  
+  verificador.addEventListener("click", ()=>{
+    if(verificador.checked){
+      espacoTarefa.setAttribute("class", "tarefaCompleta");
+      tarefasCompletas++;
+    } else{
+      espacoTarefa.setAttribute("class", "tarefaIncompleta");
+      tarefasCompletas -=1
+    }
+    exibirNumeroTarefas();
+  })
 
   //Insere o texto do paragrafo `textoTarefa`
   textoTarefa.innerHTML = `${texto.value}`;
@@ -34,7 +60,7 @@ const exibirTarefa = () => {
   //Acidiona os elementos criados à lista completa de tarefas
   espacoTarefa.appendChild(verificador);
   espacoTarefa.appendChild(textoTarefa);
-  espacoTarefa.appendChild(botaoDeletar);
+  espacoTarefa.appendChild(iconeLixeira);
   listaCompleta.appendChild(espacoTarefa);
 };
 
@@ -47,20 +73,3 @@ texto.addEventListener("keyup", (tecla) => {
     adicionarTarefa();
   }
 });
-
-const criarBotoes = () => {
-  const lista = [...listaCompleta.childNodes];
-
-  for (const tarefa of lista) {
-
-    tarefa.firstChild.addEventListener("click", () => {
-      tarefa.firstChild.checked
-        ? tarefa.setAttribute("class", "tarefaCompleta")
-        : tarefa.setAttribute("class", "tarefaIncompleta");
-    });
-
-    tarefa.lastChild.addEventListener("click", () => {
-      tarefa.remove();
-    });
-  }
-};
