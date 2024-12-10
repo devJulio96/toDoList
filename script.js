@@ -10,8 +10,7 @@ contadorTarefas.innerHTML = `Tarefas: ${tarefasTotais} Completas: ${tarefasCompl
 const adicionarTarefa = () => {
   if (texto.value != "") {
     tarefasTotais++;
-    tarefaAtual++;
-    criarElementos();
+    criarTarefas();
     exibirNumeroTarefas();
     texto.value = "";
   } else {
@@ -24,7 +23,7 @@ const exibirNumeroTarefas = ()=>{
 }
 
 //Exibe a tarefa na listaCompleta
-const criarElementos = () => {
+const criarTarefas = () => {
   //Cria os elementos para inserir na lista
   const espacoTarefa = document.createElement("div");
   const verificador = document.createElement("input");
