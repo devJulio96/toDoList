@@ -38,9 +38,11 @@ const criarTarefas = () => {
   iconeLixeira.addEventListener("click",()=>{
     espacoTarefa.remove();
     tarefasTotais -=1;
-    if(tarefasCompletas > 0){
+    
+    if(tarefasCompletas > 0 && espacoTarefa.className === "tarefaCompleta"){
       tarefasCompletas -=1;
     }
+
     exibirNumeroTarefas();
   })
   
