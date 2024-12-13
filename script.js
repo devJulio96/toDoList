@@ -4,7 +4,11 @@ const texto = document.getElementById("textoTarefa");
 const btnInserir = document.getElementById("btnInserir");
 const visorTarefas = document.getElementById("visorTarefas");
 const contadorTarefas = document.getElementById("contador");
-contadorTarefas.innerHTML = `Tarefas: ${tarefasTotais} Completas: ${tarefasCompletas}`;
+
+const renderizarNumeroTarefas = ()=>{
+  contadorTarefas.innerHTML = `Tarefas: ${tarefasTotais} Completas: ${tarefasCompletas}`;
+}
+renderizarNumeroTarefas();
 
 const renderizarTarefa = () => {
   if (texto.value != "") {
@@ -17,31 +21,26 @@ const renderizarTarefa = () => {
   }
 };
 
-const renderizarNumeroTarefas = ()=>{
-  contadorTarefas.innerHTML = `Tarefas: ${tarefasTotais} Completas: ${tarefasCompletas}`;
+const criarElemento = (elemento, atributo, valorAtributo) => {
+  const elementoCriado = document.createElement(`${elemento}`);
+  elementoCriado.setAttribute(`${atributo}`, `${valorAtributo}`);
+  return elementoCriado;
 }
 
 const adicionarTarefa = () => {
-  const espacoTarefa = document.createElement("div");
-  const verificador = document.createElement("input");
-  const textoTarefa = document.createElement("p");
-  const iconeLixeira = document.createElement("i");
-
-  espacoTarefa.setAttribute("class", "tarefaIncompleta");
-  verificador.setAttribute("type", "checkbox");
-  iconeLixeira.setAttribute("class", "fa-solid fa-trash-can");
+  const espacoTarefa = criarElemento("div", "class", "tarefaIncompleta");
+  const verificador = criarElemento("input", "type", "checkbox");
+  const textoTarefa = criarElemento("p", "class", "texto");
+  const iconeLixeira = criarElemento("i", "class", "fa-solid fa-trash-can");
   
   iconeLixeira.addEventListener("click",()=>{
     espacoTarefa.remove();
     tarefasTotais -=1;
-    
     if(tarefasCompletas > 0 && espacoTarefa.className === "tarefaCompleta"){
       tarefasCompletas -=1;
     }
-
     renderizarNumeroTarefas();
   })
-  
   verificador.addEventListener("click", ()=>{
     if(verificador.checked){
       espacoTarefa.setAttribute("class", "tarefaCompleta");
@@ -54,10 +53,7 @@ const adicionarTarefa = () => {
   })
 
   textoTarefa.innerHTML = `${texto.value}`;
-
-  espacoTarefa.appendChild(verificador);
-  espacoTarefa.appendChild(textoTarefa);
-  espacoTarefa.appendChild(iconeLixeira);
+  espacoTarefa.append(verificador, textoTarefa, iconeLixeira);
   visorTarefas.appendChild(espacoTarefa);
 };
 
