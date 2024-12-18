@@ -2,6 +2,7 @@ let tarefasTotais = 0;
 let tarefasCompletas = 0;
 const texto = document.getElementById("textoTarefa");
 const btnInserir = document.getElementById("btnInserir");
+const btnDownload = document.getElementById("download");
 const visorTarefas = document.getElementById("visorTarefas");
 const contadorTarefas = document.getElementById("contador");
 
@@ -64,3 +65,36 @@ texto.addEventListener("keyup", (tecla) => {
     renderizarTarefa();
   }
 });
+
+btnDownload.addEventListener("click",()=>{
+  const tarefasIncompletas = ["Tarefas Incompletas"];
+  const tarefasCompletas = ["Tarefas Completas"];
+
+  if(visorTarefas.hasChildNodes()){
+
+    for(const tarefa of visorTarefas.childNodes) {
+      if(tarefa.className === "tarefaIncompleta"){
+        tarefasIncompletas.push(tarefa.firstChild.nextSibling.innerHTML)
+      } else {
+        tarefasCompletas.push(tarefa.firstChild.nextSibling.innerHTML)
+      }
+    }
+    
+    const incompletas = tarefasIncompletas.join("\n");
+    const completas = tarefasCompletas.join("\n");
+    
+    const blob = new Blob([incompletas, "\n\n", completas], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+  
+    link.href = url;
+    link.download = "Lista de Tarefas.txt";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+
+  } else {
+    alert("Digite uma Tarefa");
+  }
+})
