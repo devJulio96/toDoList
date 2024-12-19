@@ -19,8 +19,15 @@ const renderizarTarefa = () => {
     adicionarTarefa();
     renderizarNumeroTarefas();
     texto.value = "";
+
+    if(texto.className ==="alertaTarefa"){
+      texto.setAttribute("placeholder", "Qual sua tarefa?");
+      texto.classList.replace("alertaTarefa", "inputTarefa");
+    }
+    
   } else {
-    alert("Digite uma Tarefa");
+    texto.setAttribute("placeholder", " X Insira uma tarefa");
+    texto.classList.replace("inputTarefa", "alertaTarefa");
   }
 };
 
@@ -97,7 +104,8 @@ btnDownload.addEventListener("click",()=>{
     URL.revokeObjectURL(url);
 
   } else {
-    alert("Digite uma Tarefa");
+    texto.setAttribute("placeholder", " X Insira uma tarefa");
+    texto.classList.replace("inputTarefa", "alertaTarefa");
   }
 })
 
@@ -109,9 +117,9 @@ uploadArquivo.addEventListener("change", (evt)=>{
   const arquivo = evt.target.files[0];
   
   if(arquivo){
-    visorTarefas.innerHTML =""
-    tarefasTotais = 0
-    tarefasCompletas = 0
+    visorTarefas.innerHTML = "";
+    tarefasTotais = 0;
+    tarefasCompletas = 0;
     
     const tipoArquivo = arquivo.type;
     if (tipoArquivo === "text/plain" || tipoArquivo === "text/csv") {

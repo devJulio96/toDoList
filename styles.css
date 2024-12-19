@@ -49,6 +49,20 @@ p{
   outline: 0;
 }
 
+.alertaTarefa {
+  width: 70%;
+  height: 1.8rem;
+  margin: 0 2% 0 2%;
+  border: 1px solid rgb(255, 67, 67);
+  border-radius: 8px;
+  padding: 0.5rem;
+  font-size: 1.25rem;
+  outline: 0;
+}
+.alertaTarefa::placeholder {
+  color: rgb(255, 67, 67);
+}
+
 button {
   height: 2.925rem;
   width: 10rem;
