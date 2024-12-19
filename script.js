@@ -2,9 +2,11 @@ let tarefasTotais = 0;
 let tarefasCompletas = 0;
 const texto = document.getElementById("textoTarefa");
 const btnInserir = document.getElementById("btnInserir");
+const btnUpload = document.getElementById("upload");
 const btnDownload = document.getElementById("download");
 const visorTarefas = document.getElementById("visorTarefas");
 const contadorTarefas = document.getElementById("contador");
+const uploadArquivo = document.getElementById("inputArquivo");
 
 const renderizarNumeroTarefas = ()=>{
   contadorTarefas.innerHTML = `Tarefas: ${tarefasTotais} Completas: ${tarefasCompletas}`;
@@ -96,5 +98,56 @@ btnDownload.addEventListener("click",()=>{
 
   } else {
     alert("Digite uma Tarefa");
+  }
+})
+
+btnUpload.addEventListener("click",()=>{
+  uploadArquivo.click()
+})
+
+uploadArquivo.addEventListener("change", (evt)=>{
+  const arquivo = evt.target.files[0];
+  
+  if(arquivo){
+    visorTarefas.innerHTML =""
+    tarefasTotais = 0
+    tarefasCompletas = 0
+    
+    const tipoArquivo = arquivo.type;
+    if (tipoArquivo === "text/plain" || tipoArquivo === "text/csv") {
+      const leitor = new FileReader();
+
+      leitor.onload = (evt) =>{
+        const conteudosDoArquivo = evt.target.result;
+        const conteudos = conteudosDoArquivo.split('\n');
+
+        const completas = [];
+        let ehTarefaCompleta = false;
+
+        for(const conteudo of conteudos){
+          if(conteudo ==="Tarefas Completas"){
+            ehTarefaCompleta = true;
+          }
+
+          if(ehTarefaCompleta){
+            completas.push(conteudo);
+          }
+
+          if(conteudo != "Tarefas Incompletas" && conteudo != "Tarefas Completas" && conteudo !=''){
+            texto.value = conteudo;
+            renderizarTarefa();
+          }
+        }
+
+        completas.shift()
+
+        for(const tarefa of visorTarefas.childNodes){
+          if(completas.includes(tarefa.getElementsByTagName("p")[0].innerHTML)){
+            tarefa.firstChild.click()
+          };
+        }
+      }
+      leitor.readAsText(arquivo);
+    }
   }
 })

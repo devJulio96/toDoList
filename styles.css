@@ -51,7 +51,7 @@ p{
 
 button {
   height: 2.925rem;
-  width: 8rem;
+  width: 10rem;
   padding: 0.5rem;
   margin-right: 2%;
   border: 1px solid rgb(75, 75, 75);
@@ -98,6 +98,20 @@ input[type=checkbox]{
   color: #272727;
 }
 
-div.downloadTarefas {
+div.gerenciadorTarefas {
   margin-top: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+input[type=file]{
+  margin-top: 10px;
+  display: none;
+}
+
+div.visorTarefas{
+  overflow: auto;
+  max-height: 16.75rem;
 }
